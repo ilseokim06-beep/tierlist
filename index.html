@@ -1,256 +1,287 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>우리 조 커스텀 티어 리스트</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우리 조 커스텀 티어 리스트</title>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-    font-family: 'Pretendard', sans-serif;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: white;
-}
+        body {
+            font-family: 'Pretendard', sans-serif;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+        }
 
-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
 
-h1 {
-    font-size: 2.5rem;
-}
+        h1 {
+            font-size: 2.5rem;
+        }
 
-p {
-    color: #cbd5f5;
-}
+        p {
+            color: #cbd5f5;
+        }
 
-.layout-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    gap: 20px;
-}
+        .layout-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
 
-/* 티어 보드 */
-.tier-board {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.1);
-    overflow: hidden;
-    flex-grow: 1;
-}
+        /* 티어 보드 */
+        .tier-board {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            flex-grow: 1;
+        }
 
-.tier-row {
-    display: flex;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
+        .tier-row {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-.tier-row:last-child {
-    border-bottom: none;
-}
+        .tier-row:last-child {
+            border-bottom: none;
+        }
 
-.tier-label {
-    width: 120px;
-    font-size: 2rem;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-shadow: 0 0 10px rgba(255,255,255,0.6);
-}
+        .tier-label {
+            width: 120px;
+            font-size: 2rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+        }
 
-.rank-s { background: linear-gradient(45deg, #ff0080, #ff4d4d); }
-.rank-a { background: linear-gradient(45deg, #ff7a00, #ffcc00); }
-.rank-b { background: linear-gradient(45deg, #00ffcc, #00ccff); }
-.rank-c { background: linear-gradient(45deg, #7c3aed, #3b82f6); }
-.rank-d { background: linear-gradient(45deg, #6b7280, #374151); }
+        .rank-s {
+            background: linear-gradient(45deg, #ff0080, #ff4d4d);
+        }
 
-.tier-items {
-    flex-grow: 1;
-    min-height: 120px;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 15px;
-    gap: 10px;
-    background: rgba(255,255,255,0.05);
-}
+        .rank-a {
+            background: linear-gradient(45deg, #ff7a00, #ffcc00);
+        }
 
-/* 사이드 */
-.side-panel {
-    width: 320px;
-    display: flex;
-    flex-direction: column;
-}
+        .rank-b {
+            background: linear-gradient(45deg, #00ffcc, #00ccff);
+        }
 
-/* 미리보기 */
-.preview-box {
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-}
+        .rank-c {
+            background: linear-gradient(45deg, #7c3aed, #3b82f6);
+        }
 
-.preview-box img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 10px;
-}
+        .rank-d {
+            background: linear-gradient(45deg, #6b7280, #374151);
+        }
 
-/* 아이템 풀 */
-.item-pool {
-    background: rgba(255,255,255,0.08);
-    border-radius: 15px;
-    padding: 15px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
+        .tier-items {
+            flex-grow: 1;
+            min-height: 120px;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 15px;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+        }
 
-/* 아이템 크게 */
-.item {
-    width: 120px;
-    height: 120px;
-    cursor: grab;
-    border-radius: 12px;
-    overflow: hidden;
-    position: relative;
-    transition: all 0.2s;
-}
+        /* 사이드 */
+        .side-panel {
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+        }
 
-.item:hover {
-    transform: scale(1.1);
-    border: 2px solid #00f5ff;
-    box-shadow: 0 0 15px #00f5ff;
-}
+        /* 미리보기 */
+        .preview-box {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
-.item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+        .preview-box img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
 
-.item-name {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    font-size: 0.8rem;
-    text-align: center;
-    background: rgba(0,0,0,0.7);
-    color: white;
-}
+        /* 아이템 풀 */
+        .item-pool {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-@media (max-width: 800px) {
-    .layout-wrapper {
-        flex-direction: column;
-    }
-}
-</style>
+        /* 아이템 크게 */
+        .item {
+            width: 120px;
+            height: 120px;
+            cursor: grab;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .item:hover {
+            transform: scale(1.1);
+            border: 2px solid #00f5ff;
+            box-shadow: 0 0 15px #00f5ff;
+        }
+
+        .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .item-name {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            font-size: 0.8rem;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+        }
+
+        @media (max-width: 800px) {
+            .layout-wrapper {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-    <h1>🏆 우리 조 커스텀 티어 리스트</h1>
-    <p>드래그해서 티어를 만들어보자</p>
-</header>
+    <header>
+        <h1>🏆 우리 조 커스텀 티어 리스트</h1>
+        <p>드래그해서 티어를 만들어보자</p>
+    </header>
 
-<div class="layout-wrapper">
+    <div class="layout-wrapper">
 
-<main class="tier-board">
-    <div class="tier-row">
-        <div class="tier-label rank-s">S</div>
-        <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <main class="tier-board">
+            <div class="tier-row">
+                <div class="tier-label rank-s">S</div>
+                <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="tier-row">
+                <div class="tier-label rank-a">A</div>
+                <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="tier-row">
+                <div class="tier-label rank-b">B</div>
+                <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="tier-row">
+                <div class="tier-label rank-c">C</div>
+                <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            </div>
+            <div class="tier-row">
+                <div class="tier-label rank-d">D</div>
+                <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            </div>
+        </main>
+
+        <aside class="side-panel">
+
+            <div class="preview-box" id="previewBox">
+                <p>아이템에 마우스를 올려보세요</p>
+            </div>
+
+            <h3 style="margin-bottom:10px;">📌 아이템</h3>
+
+            <div class="item-pool" id="pool" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+                <div class="item" draggable="true" ondragstart="drag(event)" onmouseover="showPreview(this)" id="Jpop">
+                    <img src="https://i.pinimg.com/1200x/f9/b9/e8/f9b9e827e545f2b05f5bd56eed899bbf.jpg">
+                    <div class="item-name">JPOP</div>
+                </div>
+
+                <div class="item" draggable="true" ondragstart="drag(event)" onmouseover="showPreview(this)" id="LOFI">
+                    <img src="https://i.pinimg.com/736x/95/d6/9c/95d69c978fd1f288afccee1e1b8e4a25.jpg">
+                    <div class="item-name">LO-FI</div>
+                </div>
+
+                <div class="item" draggable="true" ondragstart="drag(event)" onmouseover="showPreview(this)"
+                    id="GameBGM">
+                    <img src="https://i.pinimg.com/736x/8b/01/64/8b01649cf451ba3cddfab6208cfcdc31.jpg">
+                    <div class="item-name">GameBGM</div>
+                </div>
+
+                <div class="item" draggable="true" ondragstart="drag(event)" onmouseover="showPreview(this)"
+                    id="hip-hop">
+                    <img src="./images/HipHop.img" alt="힙합">
+                    <div class="item-name">힙합</div>
+                </div>
+
+                <div class="item" draggable="true" ondragstart="drag(event)" onmouseover="showPreview(this)" id="edm">
+                    <img src="./images/Edm.img" alt="EDM">
+                    <div class="item-name">EDM</div>
+                </div>
+                <div class="item" draggable="true" ondragstart="drag(event)" onmouseover="showPreview(this)" id="House">
+                    <img src="./images/House.img" alt="하우스">
+                    <div class="item-name">하우스</div>
+                    <!— 팀원 아이템 끝 —>
+                </div>
+
+        </aside>
     </div>
-    <div class="tier-row">
-        <div class="tier-label rank-a">A</div>
-        <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-    </div>
-    <div class="tier-row">
-        <div class="tier-label rank-b">B</div>
-        <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-    </div>
-    <div class="tier-row">
-        <div class="tier-label rank-c">C</div>
-        <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-    </div>
-    <div class="tier-row">
-        <div class="tier-label rank-d">D</div>
-        <div class="tier-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-    </div>
-</main>
 
-<aside class="side-panel">
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
 
-<div class="preview-box" id="previewBox">
-    <p>아이템에 마우스를 올려보세요</p>
-</div>
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.closest('.item').id);
+        }
 
-<h3 style="margin-bottom:10px;">📌 아이템</h3>
+        function drop(ev) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData("text");
+            const el = document.getElementById(data);
 
-<div class="item-pool" id="pool" ondrop="drop(event)" ondragover="allowDrop(event)">
+            const target = ev.target.closest('.tier-items') || ev.target.closest('.item-pool');
+            if (target) {
+                target.appendChild(el);
+            }
+        }
 
-<div class="item" draggable="true" ondragstart="drag(event)" onmouseover="showPreview(this)" id="item1">
-<img src="https://i.pinimg.com/1200x/f9/b9/e8/f9b9e827e545f2b05f5bd56eed899bbf.jpg">
-<div class="item-name">JPOP</div>
-</div>
+        function showPreview(el) {
+            const img = el.querySelector("img").src;
+            const name = el.querySelector(".item-name").innerText;
 
-<div class="item" draggable="true" ondragstart="drag(event)" onmouseover="showPreview(this)" id="item2">
-<img src="https://i.pinimg.com/736x/95/d6/9c/95d69c978fd1f288afccee1e1b8e4a25.jpg">
-<div class="item-name">LO-FI</div>
-</div>
-
-<div class="item" draggable="true" ondragstart="drag(event)" onmouseover="showPreview(this)" id="item3">
-<img src="https://i.pinimg.com/736x/8b/01/64/8b01649cf451ba3cddfab6208cfcdc31.jpg">
-<div class="item-name">GameBGM</div>
-</div>
-
-</div>
-
-</aside>
-</div>
-
-<script>
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.closest('.item').id);
-}
-
-function drop(ev) {
-    ev.preventDefault();
-    const data = ev.dataTransfer.getData("text");
-    const el = document.getElementById(data);
-
-    const target = ev.target.closest('.tier-items') || ev.target.closest('.item-pool');
-    if (target) {
-        target.appendChild(el);
-    }
-}
-
-function showPreview(el) {
-    const img = el.querySelector("img").src;
-    const name = el.querySelector(".item-name").innerText;
-
-    document.getElementById("previewBox").innerHTML =
-        `<img src="${img}"><p>${name}</p>`;
-}
-</script>
+            document.getElementById("previewBox").innerHTML =
+                `<img src="${img}"><p>${name}</p>`;
+        }
+    </script>
 
 </body>
+
 </html>
